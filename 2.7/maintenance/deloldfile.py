@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #Filename deloldfile.py
-
+# Author:  Qi Junbo
+# Created: September 28, 2018
 import os,  datetime, sys
  
 def delFileOlderThan(_dir, _days, recursive = False, verbose = False):
