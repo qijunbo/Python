@@ -12,8 +12,9 @@ usage = "Usage: \n\t%s <SOURCE> <DEST> \
 
 def zipFolderInto(source, destination ):
     timestr = time.strftime('%Y-%m-%d_%H%M%S',time.localtime(time.time()))
+    day = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     if not os.path.exists(source) :
-        print "Can not find %s ." % source
+        print "Can not find source folder %s ." % source
         return
 
     if not os.path.isdir(source):
@@ -21,12 +22,14 @@ def zipFolderInto(source, destination ):
         return
 
     if not os.path.exists(destination) :
-        os.system("mkdir -p %s"  % destination)
+        print "Can not find destination folder %s ." % source
         return
 
     if not os.path.isdir(destination):
         print "%s is not a folder." % destination
         return
+    destination = os.path.join(destination,day)
+    os.system("mkdir -p %s"  % destination)
     os.chdir(source)
     for filename in os.listdir(source):
             filepath = os.path.join(source,filename)
