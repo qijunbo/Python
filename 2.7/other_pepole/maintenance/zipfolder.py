@@ -11,17 +11,6 @@ usage = "Usage: \n\t%s <SOURCE> <DEST> \
     \n\tDEST: the folder which used to store backup archives. "
 
 def zipFolderInto(source, destination ):
-    """
-        zip up the folder in source,  and put the archives intu destination folder.
-        the format of the *zip file name looks like:
-            source-yyyy-MM-DD-HHMMSS.zip  
-        so you don't need to worry about the old archives being overwritten.
-        
-        parms:
-            source: the folder need to be backed-up
-            destination:  the folder used to store the archives.
-    
-    """
     timestr = time.strftime('%Y-%m-%d_%H%M%S',time.localtime(time.time()))
     day = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     if not os.path.exists(source) :
@@ -43,20 +32,17 @@ def zipFolderInto(source, destination ):
     os.system("mkdir -p %s"  % destination)
     os.chdir(source)
     for filename in os.listdir(source):
-        filepath = os.path.join(source,filename)
-        if os.path.isdir(filepath):
-            destfile = os.path.join(destination, ''.join([filename, "-", timestr, ".zip"]))
-            print "zipping folder %s to %s" % (filepath, destfile)
-            os.system("zip -rq  %s  %s"  % (destfile, filename))
-        else:
-            print "File %s ignored." % filepath
-    return
+            filepath = os.path.join(source,filename)
+            if os.path.isdir(filepath):
+                destfile = os.path.join(destination, ''.join([filename, "-", timestr, ".zip"]))
+                print "zipping folder %s to %s" % (filepath, destfile)
+                os.system("zip -rq  %s  %s"  % (destfile, filename))
+            else:
+                print "File %s ignored." % filepath
 
+argLen = len(sys.argv)
 
-
-if __name__ == '__main__':
-    argLen = len(sys.argv)
-    if argLen < 3 :
-        print usage % sys.argv[0]
-    else:
-        zipFolderInto(sys.argv[1],sys.argv[2])
+if argLen < 3 :
+    print usage % sys.argv[0]
+else:
+    zipFolderInto(sys.argv[1],sys.argv[2])
