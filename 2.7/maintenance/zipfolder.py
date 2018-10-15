@@ -32,13 +32,15 @@ def zipFolderInto(source, destination ):
     os.system("mkdir -p %s"  % destination)
     os.chdir(source)
     for filename in os.listdir(source):
-            filepath = os.path.join(source,filename)
-            if os.path.isdir(filepath):
-                destfile = os.path.join(destination, ''.join([filename, "-", timestr, ".zip"]))
-                print "zipping folder %s to %s" % (filepath, destfile)
-                os.system("zip -rq  %s  %s"  % (destfile, filename))
-            else:
-                print "File %s ignored." % filepath
+        filepath = os.path.join(source,filename)
+        if os.path.isdir(filepath):
+            destfile = os.path.join(destination, ''.join([filename, "-", timestr, ".zip"]))
+            print "zipping folder %s to %s" % (filepath, destfile)
+            os.system("zip -rq  %s  %s"  % (destfile, filename))
+        else:
+            print "File %s ignored." % filepath
+    return
+
 
 argLen = len(sys.argv)
 
