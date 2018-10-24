@@ -33,7 +33,7 @@ def zipFolderInto(source, destination ):
         return
 
     if not os.path.exists(destination) :
-        print "Can not find destination folder %s ." % source
+        print "Can not find destination folder %s ." % destination
         return
 
     if not os.path.isdir(destination):
