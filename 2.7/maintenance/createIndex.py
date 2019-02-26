@@ -2,8 +2,16 @@
 #Filename createIndex.py
 # Author:  Qi Junbo
 # Created: February 22, 2019
-import os,  datetime, sys
+import os, io, datetime, sys
 from __builtin__ import file
+
+###io.open('textfile.txt', 'w', encoding='utf-8')
+
+def writeTextToFile(text, file):
+   with open(file,'wb') as f:
+      f.write(text)
+      f.close()
+
  
 def createIndexFor(_dir):
     """
@@ -20,15 +28,16 @@ def createIndexFor(_dir):
     if not os.path.exists(_dir) :
         print "Can not find folder [%s] " % _dir
         return
-    
+    text = '<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\" /></head>\n'
     for filename in os.listdir(_dir):
-        os.system("echo '' >%s/%s" %( _dir, index))
         filepath = os.path.join(_dir,filename)
         if os.path.isdir(filepath): # ignore folders, links.
-            os.system("echo '<a href=\"%s/index.html\">%s</a>' >>%s/%s" %(filename, filename, _dir, index))
+            text = text + ( '<a href=\"%s/index.html\">%s</a><br/>\n' %(filename, filename))
             createIndexFor(filepath)
-        elif os.path.isfile(filepath) :
-            os.system("echo '<img src=\"%s\"><br/>' >>%s/%s" %(filename, _dir, index))
+        elif os.path.isfile(filepath) and filepath.endswith('jpg') :
+            text = text + ('<img src=\"%s\"><br/>\n' %(filename))
+    text = text + '</html>'
+    writeTextToFile(text, os.path.join( _dir, index))
     return
 
 
