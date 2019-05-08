@@ -28,11 +28,12 @@ def createIndexFor(_dir):
     if not os.path.exists(_dir) :
         print "Can not find folder [%s] " % _dir
         return
-    text = '<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\" /></head>\n'
-    for filename in os.listdir(_dir):
+    text = '<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /></head>\n'
+    files = sorted( os.listdir(_dir))
+    for filename in files :
         filepath = os.path.join(_dir,filename)
         if os.path.isdir(filepath): # ignore folders, links.
-            text = text + ( '<a href=\"%s/index.html\">%s</a><br/>\n' %(filename, filename))
+            text = text + ( '<a target=\"_blank\" href=\"%s/index.html\">%s</a><br/>\n' %(filename, filename))
             createIndexFor(filepath)
         elif os.path.isfile(filepath) and filepath.endswith('jpg') :
             text = text + ('<img src=\"%s\"><br/>\n' %(filename))
