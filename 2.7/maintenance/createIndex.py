@@ -12,19 +12,19 @@ def writeTextToFile(text, file):
       f.write(text)
       f.close()
 
- 
+
 def createIndexFor(_dir):
     """
     create index.html page for files in _dir.
-        
+
     """
     index = "index.html"
-    
+
     cwd = os.getcwd()
     if not _dir.startswith( '/' ) :
         _dir =  os.path.join(cwd , _dir)
         print _dir
- 
+
     if not os.path.exists(_dir) :
         print "Can not find folder [%s] " % _dir
         return
@@ -37,16 +37,18 @@ def createIndexFor(_dir):
             createIndexFor(filepath)
         elif os.path.isfile(filepath) and filepath.endswith('jpg') :
             text = text + ('<img src=\"%s\"><br/>\n' %(filename))
+        else:
+            text = text + ('<a href=\"%s\">%s</a><br/>\n' %(filename, filename))
     text = text + '</html>'
     writeTextToFile(text, os.path.join( _dir, index))
     return
 
 
- 
-    
 
-usage = "Generate index.html for specified dir. \nUsage: \n\t%s <PATH>" 
-    
+
+
+usage = "Generate index.html for specified dir. \nUsage: \n\t%s <PATH>"
+
 def main():
     argLen = len(sys.argv)
     if argLen <= 1:
@@ -58,4 +60,6 @@ def main():
 if __name__ == '__main__':
     main()
     exit()
-        
+
+
+
