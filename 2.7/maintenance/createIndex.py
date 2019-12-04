@@ -35,8 +35,8 @@ def createIndexFor(_dir):
         if os.path.isdir(filepath): # ignore folders, links.
             text = text + ( '<a target=\"_blank\" href=\"%s/index.html\">%s</a><br/>\n' %(filename, filename))
             createIndexFor(filepath)
-        elif os.path.isfile(filepath) and filepath.endswith('jpg') :
-            text = text + ('<img src=\"%s\"><br/>\n' %(filename))
+        elif os.path.isfile(filepath) and (filepath.endswith('png') or filepath.endswith('jpg') ): 
+            text = text + ('%s<br/><img src=\"%s\"><br/><hr />\n' %(filename,filename)) 
         else:
             text = text + ('<a href=\"%s\">%s</a><br/>\n' %(filename, filename))
     text = text + '</html>'
